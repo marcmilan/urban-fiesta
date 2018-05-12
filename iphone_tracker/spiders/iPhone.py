@@ -10,15 +10,15 @@ class IphoneSpider(scrapy.Spider):
     name = "iPhone"
     allowed_domains = ["h2shop.vn", "hnammobile.com"]
     start_urls = [
-        'http://www.h2shop.vn/dien-thoai-en/iphone/iphone-se/',
-        'http://www.h2shop.vn/dien-thoai-en/iphone/iphone-6s-en/',
-        'http://www.h2shop.vn/dien-thoai-en/iphone/iphone-6/',
-        'http://www.h2shop.vn/dien-thoai-en/iphone/iphone-6-plus/',
-        'http://www.hnammobile.com/loai-dien-thoai/apple-iphone-se.853.html',
-        'http://www.hnammobile.com/loai-dien-thoai/apple-iphone-6s.759.html',
-        'http://www.hnammobile.com/loai-dien-thoai/apple-iphone-6s-plus.760.html',
-        'http://www.hnammobile.com/loai-dien-thoai/apple-iphone-6-.264.html',
-        'http://www.hnammobile.com/loai-dien-thoai/apple-iphone-6-plus.585.html',
+        #'http://www.h2shop.vn/dien-thoai-en/iphone/iphone-se/',
+        'https://www.h2shop.vn/iphone-8-plus-64gb-red.html',
+        #'https://www.h2shop.vn/iphone-8-plus-256gb-red.html',
+        #'https://www.h2shop.vn/iphone-7-plus-32gb-silver-black.html'#,
+        #'http://www.hnammobile.com/loai-dien-thoai/apple-iphone-se.853.html',
+        #'http://www.hnammobile.com/loai-dien-thoai/apple-iphone-6s.759.html',
+        #'http://www.hnammobile.com/loai-dien-thoai/apple-iphone-6s-plus.760.html',
+        #'http://www.hnammobile.com/loai-dien-thoai/apple-iphone-6-.264.html',
+        #'http://www.hnammobile.com/loai-dien-thoai/apple-iphone-6-plus.585.html',
     ]
 
     def parse(self, response):
@@ -28,12 +28,11 @@ class IphoneSpider(scrapy.Spider):
                 item = IPhoneItem()
                 item['shop_name'] = 'h2shop.vn'
                 item['model_id'] = sel.xpath(
-                    '@name').extract_first()
+                    '//div/*[@class="ty-grid-list__item-name"]/a/text()').extract_first()
                 item['model_name'] = sel.xpath(
-                    'div/div/a/@title').extract_first()
+                    '//h1[@class="ty-mainbox-title"]/span/text()').extract_first()
                 item['display_price'] = sel.xpath(
-                    'div/div/div/div/div/span/span/span/text()'
-                ).extract_first()
+                    '//div/*[@class="ty-grid-list__price "]/span/span/bdi/span/text()').extract_first()
                 yield item
 
         elif 'hnammobile.com' in response.url:
