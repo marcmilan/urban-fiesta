@@ -25,3 +25,4 @@ class IPhoneItem(scrapy.Item):
     model_name = scrapy.Field(serializer=serialize_model_name)
     display_price = scrapy.Field(serializer=serialize_display_price)
     computable_price = scrapy.Field()
+    pull_date = scrapy.Field()

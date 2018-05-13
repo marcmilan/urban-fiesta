@@ -65,6 +65,7 @@ TELNETCONSOLE_ENABLED=False
 ITEM_PIPELINES = {
     'iphone_tracker.pipelines.IPhonePricePipeline': 300,
     'iphone_tracker.pipelines.ComputablePricePipeline': 500,
+    'iphone_tracker.pipelines.DuplicatesPipeline': 700,
     'iphone_tracker.pipelines.JsonExportPipeline': 800
 }
 

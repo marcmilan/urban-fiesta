@@ -27,6 +27,21 @@ class ComputablePricePipeline(object):
         item['computable_price'] = int(price.replace(',', '').replace('.', ''))
         return item
 
+class DuplicatesPipeline(object):
+
+    def __init__(self):
+        self.ids_seen = set()
+
+    def process_item(self, item, spider):
+        #using model_id and shop_name as primary key for duplicates
+        pk = item['model_name'] + item['shop_name']
+
+        if (pk) in self.ids_seen:
+            raise DropItem("Duplicate item found: %s" % item)
+        else:
+            self.ids_seen.add(pk)
+            return item
+
 
 class JsonExportPipeline(object):
 
